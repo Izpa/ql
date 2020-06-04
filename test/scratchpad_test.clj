@@ -81,29 +81,27 @@
                        {:format :jdbc
                         :inline true})))
 
-  (= '()
-     (db/query (ql/sql {:ql/type :ql/select
-                        :ql/select {:resource :u.resource
-                                    :id :u.id}
-                        :ql/from {:u-- {:ql/type :ql/ident
-                                        :ql/value :User}}
-                        :ql/where {:false [:ql/= 1 2]}}
+  #_(db/query (ql/sql {:ql/type :ql/select
+                     :ql/select {:resource :u.resource
+                                 :id :u.id}
+                     :ql/from {:u-- {:ql/type :ql/ident
+                                     :ql/value :User}}
+                     :ql/where {:false [:ql/= 1 2]}}
 
-                       {:format :jdbc
-                        :inline true})))
+                    {:format :jdbc
+                     :inline true}))
 
-  (= '()
-     (db/query (ql/sql {:ql/type :ql/select
-                        :ql/select {:resource :u.resource
-                                    :id :u.id}
-                        :ql/from {:u {:ql/type :ql/ident
-                                      :ql/value :User}}
-                        :ql/where {:false/**/true-- [:ql/= 1 2]}}
+  #_(db/query (ql/sql {:ql/type :ql/select
+                     :ql/select {:resource :u.resource
+                                 :id :u.id}
+                     :ql/from {:u {:ql/type :ql/ident
+                                   :ql/value :User}}
+                     :ql/where {:false/**/true-- [:ql/= 1 2]}}
 
-                       {:format :jdbc
-                        :inline true})))
+                    {:format :jdbc
+                     :inline true}))
 
-  (db/query (ql/sql {:ql/type :ql/select
+  #_(db/query (ql/sql {:ql/type :ql/select
                      :ql/select {:resource "resourse', * FROM \"User\" --"
                                  :id :u.id}
                      :ql/from {:u {:ql/type :ql/ident
@@ -113,7 +111,7 @@
                     {:format :jdbc
                      :inline true}))
 
-  (db/query (ql/sql {:ql/type :ql/select
+  #_(db/query (ql/sql {:ql/type :ql/select
                      :ql/select {:resource :u.resource
                                  :id :u.id}
                      :ql/from {:u {:ql/type :ql/ident

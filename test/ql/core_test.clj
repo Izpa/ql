@@ -31,6 +31,10 @@
    {:sql "'str'" :params []})
 
   (matcho/match
+   (sut/sql {:ql/type :ql/param :ql/value "'str'"} {:inline true})
+   {:sql "'''str'''" :params []})
+
+  (matcho/match
    (sut/sql {:ql/type :ql/projection
              :alias :column})
    {:sql "column AS alias"})
@@ -94,7 +98,7 @@
              :ql/where {:user-ids [:ql/= :user.id 5]}
              :ql/limit 10})
 
-   
+
 
    {:sql "SELECT name AS name , birthDate AS bd FROM user user WHERE /** user-ids **/ ( user.id = 5 ) LIMIT 10" :params []})
 
@@ -107,7 +111,7 @@
    {:sql "SELECT * FROM user u , group g WHERE /** user-ids **/ ( u.id = g.user_id ) AND /** group-type **/ ( g.name = 'admin' )", :params []})
 
   (matcho/match
-   (sut/sql 
+   (sut/sql
     {:ql/select :*
      :ql/from {:post :post}
      :ql/joins {:u {:ql/join-type "LEFT"
@@ -116,7 +120,7 @@
    {:sql "SELECT * FROM post post \n LEFT JOIN user u ON /** by-ids **/ ( u.id = post.user_id )"})
 
   (matcho/match
-   (sut/sql 
+   (sut/sql
     {:ql/select :*
      :ql/from {:post :post}
      :ql/joins {:u {:ql/join-type "LEFT"
