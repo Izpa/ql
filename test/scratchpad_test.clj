@@ -44,7 +44,7 @@
                      :ql/value {:id "user-1" :resource {:ql/type :ql/jsonb
                                                         :email "nicola@health-samurai.io"
                                                         :name "Nicola"}}
-                     :ql/on-conflict {:??? :TODO} 
+                     :ql/on-conflict {:??? :TODO}
                      :ql/returning :*}
 
                     {:format :jdbc}))
@@ -61,5 +61,65 @@
      :resource {:name "Nicola"}}])
 
 
-  )
 
+  (db/query (ql/sql {:ql/type :ql/insert
+                     :ql/table_name {:ql/type :ql/ident
+                                     :ql/value :User}
+                     :ql/value {:id "user-2" :resource {:ql/type :ql/jsonb :name "Nicola2"}}
+                     :ql/returning :*}
+
+                    {:format :jdbc}))
+
+  (= '()
+     (db/query (ql/sql {:ql/type :ql/select
+                        :ql/select {:resource :u.resource
+                                    :id :u.id}
+                        :ql/from {:u {:ql/type :ql/ident
+                                      :ql/value :User}}
+                        :ql/where {:by-id [:ql/= :u.id [:ql/param "user-2' or 1=1) --"]]}}
+
+                       {:format :jdbc
+                        :inline true})))
+
+  (= '()
+     (db/query (ql/sql {:ql/type :ql/select
+                        :ql/select {:resource :u.resource
+                                    :id :u.id}
+                        :ql/from {:u-- {:ql/type :ql/ident
+                                        :ql/value :User}}
+                        :ql/where {:false [:ql/= 1 2]}}
+
+                       {:format :jdbc
+                        :inline true})))
+
+  (= '()
+     (db/query (ql/sql {:ql/type :ql/select
+                        :ql/select {:resource :u.resource
+                                    :id :u.id}
+                        :ql/from {:u {:ql/type :ql/ident
+                                      :ql/value :User}}
+                        :ql/where {:false/**/true-- [:ql/= 1 2]}}
+
+                       {:format :jdbc
+                        :inline true})))
+
+  (db/query (ql/sql {:ql/type :ql/select
+                     :ql/select {:resource "resourse', * FROM \"User\" --"
+                                 :id :u.id}
+                     :ql/from {:u {:ql/type :ql/ident
+                                   :ql/value :User}}
+                     :ql/where {:false [:ql/= 2 1]}}
+
+                    {:format :jdbc
+                     :inline true}))
+
+  (db/query (ql/sql {:ql/type :ql/select
+                     :ql/select {:resource :u.resource
+                                 :id :u.id}
+                     :ql/from {:u {:ql/type :ql/ident
+                                     :ql/value :User}}
+                     :ql/where {:false [:ql/= 1 2]}}
+
+                    {:format :jdbc
+                     :inline true}))
+  )
