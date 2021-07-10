@@ -47,7 +47,7 @@
   [acc expr]
   (if (= :honeysql (get-in acc [:opts :style]))
     (conj-param acc expr)
-    (conj-sql acc (str "'" expr "'"))))
+    (conj-sql acc (str "'" (str/replace expr #"'" "''") "'"))))
 
 (defmethod to-sql nil
   [acc expr]
@@ -80,4 +80,3 @@
        :jdbc  (into [(:sql res)] (:params res))
        :pretty (assoc res :sql (pretty-sql/make-pretty-sql (:pretty-sql res)))
        res)))
-
